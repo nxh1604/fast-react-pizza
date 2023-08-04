@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import styles from "./CartOverview.module.css";
 
 function CartOverview() {
   return (
-    <div>
+    <div className={styles.container}>
       <p>
         <span>23 pizzas</span>
         <span>$23.45</span>

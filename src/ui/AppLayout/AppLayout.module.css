@@ -1,0 +1,12 @@
+.layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mainContent {
+  flex-grow: 1;
+  overflow: auto;
+  padding: 2.5rem 0;
+}

@@ -1,0 +1,11 @@
+.container {
+  background-color: var(--color--bg-black-02);
+  color: var(--color--text-whie-01);
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem 2.5%;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}

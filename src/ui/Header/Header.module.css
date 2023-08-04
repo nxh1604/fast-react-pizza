@@ -1,0 +1,37 @@
+.container {
+  background-color: var(--color--main-yellow-01);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  font-size: 2.5rem;
+  padding: 2rem 2.5%;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.link {
+  justify-self: flex-start;
+}
+
+.user {
+  justify-self: flex-end;
+}
+
+@media (max-width: 640px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    grid-template-rows: repeat(3, 1fr);
+    padding: 1rem 0 5px;
+    font-size: 2.3rem;
+  }
+
+  .link {
+    justify-self: unset;
+  }
+
+  .user {
+    justify-self: unset;
+  }
+}
