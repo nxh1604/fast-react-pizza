@@ -1,5 +1,10 @@
 /* https://dev.to/afif/i-made-100-css-loaders-for-your-next-project-4eje */
 .loader {
+  position: absolute;
+  margin: 0 auto;
+  margin-top: 10%;
+  left: 0;
+  right: 0;
   width: 45px;
   aspect-ratio: 0.75;
   --c: no-repeat linear-gradient(#333 0 0);

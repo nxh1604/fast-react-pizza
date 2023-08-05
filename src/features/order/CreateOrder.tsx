@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 
+import styles from "./CreateOrder.module.css";
+import Button from "../../ui/Button/Button";
+
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
@@ -52,52 +55,78 @@ function CreateOrder() {
 
   console.log(phone);
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
-      <Form method="POST">
-        <div>
-          <label>First Name</label>
-          <input type="text" name="customer" required />
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h2>Ready to order? Let's go!</h2>
+      </div>
+      <Form method="POST" className={styles.form}>
+        <div className={styles.row2}>
+          <label htmlFor="name">First Name</label>
+          <div className={styles.inputContainer}>
+            <input
+              id="name"
+              type="text"
+              name="customer"
+              required
+              className="input"
+              autoComplete="off"
+            />
+          </div>
         </div>
 
-        <div>
-          <label>Phone number</label>
-          <div>
+        <div className={styles.row2}>
+          <label htmlFor="phone">Phone number</label>
+          <div className={styles.inputContainer}>
             <input
+              className={`input ${phone && styles.errorContainer}`}
+              id="phone"
               type="tel"
               name="phone"
+              autoComplete="off"
               required
               onChange={() => {
                 if (phone) setPhone(null);
               }}
             />
-            {phone && <span>{!!formErrors?.phone && formErrors.phone}</span>}
+          </div>
+          {phone && (
+            <span className={styles.error}>
+              {!!formErrors?.phone && formErrors.phone}
+            </span>
+          )}
+        </div>
+
+        <div className={styles.row2}>
+          <label htmlFor="address">Address</label>
+          <div className={styles.inputContainer}>
+            <input
+              className="input"
+              id="address"
+              type="text"
+              name="address"
+              required
+              autoComplete="off"
+            />
           </div>
         </div>
 
-        <div>
-          <label>Address</label>
-          <div>
-            <input type="text" name="address" required />
-          </div>
-        </div>
-
-        <div>
+        <div className={styles.priority}>
           <input
             type="checkbox"
             name="priority"
             id="priority"
+            autoComplete="off"
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority">Want to yo give your order priority?</label>
+          <label htmlFor="priority">Want to give your order priority?</label>
         </div>
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <button disabled={isSubmitting}>
+          <Button disabled={isSubmitting}>
             {isSubmitting ? "Placing order..." : "Order now"}
-          </button>
+          </Button>
         </div>
       </Form>
     </div>

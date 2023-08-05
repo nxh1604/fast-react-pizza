@@ -1,0 +1,40 @@
+.item {
+  display: grid;
+  grid-template-columns: 18rem 1fr;
+  padding: 0 1rem;
+}
+
+.imgContainer {
+  height: 16rem;
+  width: 16rem;
+}
+
+.table {
+  text-align: left;
+  max-width: 90rem;
+  min-width: 40rem;
+}
+
+.table th {
+  width: 15rem;
+}
+
+.special {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 40rem;
+  min-width: 10rem;
+  gap: 2rem;
+}
+
+.button {
+  padding: 0;
+  white-space: nowrap;
+  padding: 1rem;
+  font-size: 1.5rem;
+}
+
+.soldOut {
+  filter: grayscale(100%);
+}

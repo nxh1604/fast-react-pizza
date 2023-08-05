@@ -1,0 +1,75 @@
+.container {
+  background-color: var(--color--bg-gray-01);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 60rem;
+}
+
+.header {
+  background-color: red;
+  width: 100%;
+  border-bottom: 4px solid cyan;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 2rem;
+}
+
+.error {
+  color: #cd0404;
+  font-size: 1.6rem;
+}
+
+.row2 {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.row2 > label {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.inputContainer {
+  height: 3rem;
+  width: 90%;
+}
+
+.priority {
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 2.5px;
+}
+
+.priority > input {
+  height: 20px;
+  width: 20px;
+}
+
+:global(.input) {
+  width: 100%;
+  background-color: #fff;
+  height: 100%;
+  padding-left: 1rem;
+  font-size: 1.8rem;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s ease-in;
+}
+
+:global(.input:focus) {
+  background-color: var(--color--main-yellow-01);
+}
+
+.errorContainer {
+  border: 2px solid red;
+}

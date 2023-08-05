@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "./SearchOrder.module.css";
 
 const SearchOrder = (): JSX.Element => {
   const [value, setValue] = useState("");
@@ -14,13 +15,16 @@ const SearchOrder = (): JSX.Element => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        placeholder="Search order # "
-        type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      />
+    <form onSubmit={handleSubmit} className={styles.container}>
+      <div className={styles.inputContainer}>
+        <input
+          className="input"
+          placeholder="Search order # "
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+      </div>
     </form>
   );
 };

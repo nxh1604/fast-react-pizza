@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.container {
+  background-color: red;
+  padding: 5rem;
+  border-radius: 100% 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.inputContainer {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.inputContainer > input {
+  padding: 0.5rem 1rem;
+}
