@@ -59,6 +59,7 @@ function CreateOrder() {
       <div className={styles.header}>
         <h2>Ready to order? Let's go!</h2>
       </div>
+
       <Form method="POST" className={styles.form}>
         <div className={styles.row2}>
           <label htmlFor="name">First Name</label>

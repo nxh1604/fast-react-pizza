@@ -17,7 +17,6 @@
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 20px;
-  z-index: -1;
 }
 
 .png {
@@ -30,7 +29,13 @@
   background-image: url("ryou.png");
   background-position: center;
   background-size: cover;
-  z-index: -1;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  z-index: 1;
 }
 
 .headerContainer {

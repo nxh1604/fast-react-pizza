@@ -1,9 +1,9 @@
 .container {
-  background-color: var(--color--bg-gray-01);
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  width: 60rem;
+  height: 100%;
 }
 
 .header {
@@ -49,9 +49,18 @@
   gap: 2.5px;
 }
 
-.priority > input {
+.priority input {
   height: 20px;
   width: 20px;
+  accent-color: var(--color--main-yellow-01);
+}
+
+.priority input:focus {
+  box-shadow: 0 0 0 2px var(--color--main-yellow-01);
+}
+
+.priority input:hover {
+  box-shadow: 0 0 0 2px var(--color--main-yellow-01);
 }
 
 :global(.input) {
@@ -68,6 +77,10 @@
 
 :global(.input:focus) {
   background-color: var(--color--main-yellow-01);
+}
+
+:global(.input:hover) {
+  box-shadow: 0 0 0 2px var(--color--main-yellow-01);
 }
 
 .errorContainer {

@@ -14,3 +14,7 @@
 .inputContainer > input:focus-visible {
   outline: 2px solid #0a7a82;
 }
+
+.inputContainer input:hover {
+  box-shadow: 0 0 0 2px #0a7a82;
+}
