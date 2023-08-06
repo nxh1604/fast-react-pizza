@@ -1,9 +1,12 @@
 import { useState } from "react";
 import styles from "./CreateUser.module.css";
 import Button from "../../ui/Button/Button";
+import { useNavigate } from "react-router-dom";
 
 function CreateUser() {
   const [username, setUsername] = useState("");
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,9 +28,7 @@ function CreateUser() {
       </div>
       {username !== "" && (
         <div className={styles.btn}>
-          <Button to="/menu" disabled={false}>
-            Start ordering
-          </Button>
+          <Button onClick={() => navigate("/menu")}>Start ordering</Button>
         </div>
       )}
     </form>
