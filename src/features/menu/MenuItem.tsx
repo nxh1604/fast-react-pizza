@@ -12,22 +12,22 @@ function MenuItem({ pizza }) {
         <img src={imageUrl} alt={name} />
       </div>
       <table className={styles.table}>
-        <tr>
-          <th>Name</th>
-          <td>{name}</td>
-        </tr>
-        <tr>
-          <th>Ingredients</th>
-          <td>{ingredients.join(", ")}</td>
-        </tr>
-        <tr>
-          <th>{soldOut ? "Status" : "Price"}</th>
-          <td className={styles.special}>
-            {!soldOut ? `${formatCurrency(unitPrice)}` : "Sold Out"}{" "}
-            {!soldOut && <Button className={styles.button}>Add to cart</Button>}
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <td>{name}</td>
+          </tr>
+          <tr>
+            <th>Ingredients</th>
+            <td>{ingredients.join(", ")}</td>
+          </tr>
+          <tr>
+            <th>{soldOut ? "Status" : "Price"}</th>
+            <td>{!soldOut ? `${formatCurrency(unitPrice)}` : "Sold Out"} </td>
+          </tr>
+        </tbody>
       </table>
+      {!soldOut && <Button className={styles.button}>Add to cart</Button>}
     </li>
   );
 }

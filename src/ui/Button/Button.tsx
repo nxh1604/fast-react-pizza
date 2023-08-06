@@ -15,17 +15,8 @@ const Button = ({
   onClick?: () => void | undefined;
 }): JSX.Element => {
   return (
-    <button
-      onClick={onClick}
-      className={`${styles.button} ${className}`}
-      disabled={disabled}>
-      {to ? (
-        <Link className={styles.link} to={to}>
-          {children}
-        </Link>
-      ) : (
-        children
-      )}
+    <button onClick={onClick} className={`${styles.button} ${className}`} disabled={disabled}>
+      {children}
     </button>
   );
 };

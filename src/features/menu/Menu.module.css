@@ -4,3 +4,18 @@
   grid-auto-rows: 1fr;
   gap: 2rem;
 }
+
+@media (max-width: 200rem) {
+  .menu {
+    width: fit-content;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1296px) {
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
