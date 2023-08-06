@@ -9,6 +9,17 @@
   font-weight: 600;
 }
 
+.alone {
+  display: flex;
+  background-color: var(--color--main-yellow-01);
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  padding: 1rem 2.5%;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
 .link {
   justify-self: flex-start;
 }
