@@ -11,14 +11,15 @@ const Button = ({
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
   disabled?: boolean;
-  onClick?: () => void | unknown | undefined;
+  onClick?: (e?: unknown) => void | unknown | undefined;
 }): JSX.Element => {
   return (
     <button
       type={type}
       onClick={onClick}
       className={`${styles.button} ${className}`}
-      disabled={disabled}>
+      disabled={disabled}
+    >
       {children}
     </button>
   );

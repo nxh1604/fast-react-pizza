@@ -1,13 +1,34 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../ui/Button/Button";
 import { formatCurrency } from "../../utils/helpers";
 
 import styles from "./MenuItem.module.css";
-import { addItem } from "../cart/cartSlice";
+import {
+  ICartItem,
+  addItem,
+  decItemQuantity,
+  deleteItem,
+  incItemQuantity,
+} from "../cart/cartSlice";
+import { IRootState } from "../../store";
 
-function MenuItem({ pizza }) {
+export interface IPizza {
+  id: number;
+  name: string;
+  unitPrice: number;
+  ingredients: string[];
+  soldOut: boolean;
+  imageUrl: string;
+}
+
+function MenuItem({ pizza }: { pizza: IPizza }) {
   const dispatch = useDispatch();
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  const getQuantity = useSelector((state: IRootState) => {
+    const item = state.cartSlice.cart.find((item: ICartItem) => item.pizzaId === id);
+    return item ? item.quantity : 0;
+  });
 
   const handleAddPizza = () => {
     const newItem = {
@@ -42,11 +63,35 @@ function MenuItem({ pizza }) {
           </tr>
         </tbody>
       </table>
-      {!soldOut && (
-        <Button onClick={handleAddPizza} className={styles.button}>
-          Add to cart
-        </Button>
-      )}
+      {!soldOut &&
+        (!getQuantity ? (
+          <Button onClick={handleAddPizza} className={styles.button}>
+            Add to cart
+          </Button>
+        ) : (
+          <div className={styles.updateContainer}>
+            <Button
+              className={styles.updateButton}
+              onClick={() => {
+                dispatch(decItemQuantity(id));
+              }}
+            >
+              -
+            </Button>
+            <span>{getQuantity}</span>
+            <Button
+              className={styles.updateButton}
+              onClick={() => {
+                dispatch(incItemQuantity(id));
+              }}
+            >
+              +
+            </Button>
+            <Button className={styles.deleteButton} onClick={() => dispatch(deleteItem(id))}>
+              Delete
+            </Button>
+          </div>
+        ))}
     </li>
   );
 }

@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IRootState } from "../../store";
 
-interface ICartItem {
-  imageURL: string;
+export interface ICartItem {
+  imageUrl: string;
   pizzaId: number;
   name: string;
   quantity: number;
@@ -37,28 +38,32 @@ const cartSlice = createSlice({
     },
     deleteItem(state, action) {
       // payload = pizzaId
-      state.cart = state.cart.filter((el) => el.pizzaId === action.payload);
+      state.cart = state.cart.filter((el) => el.pizzaId !== action.payload);
     },
     incItemQuantity(state, action) {
       // payload = pizzaId
-      const item = state.cart.find(
-        (el) => el.pizzaId === action.payload
-      ) as ICartItem;
+      const item = state.cart.find((el) => el.pizzaId === action.payload) as ICartItem;
       // tao 1 reference toi object co pizzaId = action.payload
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
     },
     decItemQuantity(state, action) {
-      const item = state.cart.find(
-        (el) => el.pizzaId === action.payload
-      ) as ICartItem;
+      const item = state.cart.find((el) => el.pizzaId === action.payload) as ICartItem;
 
       item.quantity--;
-      if (item.quantity === 0) {
-        state.cart = state.cart.filter((el) => el.pizzaId === item.pizzaId);
-        return;
-      }
       item.totalPrice = item.quantity * item.unitPrice;
+      if (item.quantity === 0) {
+        state.cart = state.cart.filter((el) => el.pizzaId !== item.pizzaId);
+      }
+    },
+    setItemQuantity(state, action) {
+      const item = state.cart.find((el) => el.pizzaId === action.payload.pizzaId) as ICartItem;
+      item.quantity = action.payload.quantity;
+      item.totalPrice = item.quantity * item.unitPrice;
+
+      if (item.quantity === 0) {
+        state.cart = state.cart.filter((el) => el.pizzaId !== item.pizzaId);
+      }
     },
     clearCart(state) {
       state.cart = [];
@@ -66,18 +71,13 @@ const cartSlice = createSlice({
   },
 });
 
-export const {
-  addItem,
-  deleteItem,
-  incItemQuantity,
-  decItemQuantity,
-  clearCart,
-} = cartSlice.actions;
+export const { setItemQuantity, addItem, deleteItem, incItemQuantity, decItemQuantity, clearCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
 
-export const getTotalQuantity = (state: any) =>
-  state.cartSlice.cart.reduce((a: number, b: any) => a + b.quantity, 0);
+export const getTotalQuantity = (state: IRootState) =>
+  state.cartSlice.cart.reduce((a: number, b: ICartItem) => a + b.quantity, 0);
 
-export const getTotalCartPrice = (state: any) =>
-  state.cartSlice.cart.reduce((a: number, b: any) => a + b.totalPrice, 0);
+export const getTotalCartPrice = (state: IRootState) =>
+  state.cartSlice.cart.reduce((a: number, b: ICartItem) => a + b.totalPrice, 0);

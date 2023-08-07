@@ -6,34 +6,11 @@ import Button from "../../ui/Button/Button";
 import { useDispatch, useSelector } from "react-redux";
 import EmptyCart from "./EmptyCart";
 import { clearCart } from "./cartSlice";
-
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+import { IRootState } from "../../store";
 
 function Cart() {
-  const username = useSelector((state) => state.user.userName);
-  const cart = useSelector((state) => state.cartSlice.cart);
+  const username = useSelector((state: IRootState) => state.user.userName);
+  const cart = useSelector((state: IRootState) => state.cartSlice.cart);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

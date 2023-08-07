@@ -2,13 +2,20 @@
 
 import { Await, defer, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
-import {
-  calcMinutesLeft,
-  formatCurrency,
-  formatDate,
-} from "../../utils/helpers";
+import { calcMinutesLeft, formatCurrency, formatDate } from "../../utils/helpers";
 import { getOrder } from "../../services/apiRestaurant";
 import Loading from "../../ui/Loading";
+import { ICartItem } from "../cart/cartSlice";
+
+interface IOrder {
+  id: number;
+  status: string;
+  priority: boolean;
+  priorityPrice: number;
+  estimatedDelivery: Date;
+  orderPrice: number;
+  cart: ICartItem[];
+}
 
 const OrderLoading = () => {
   const data = useLoaderData();
@@ -20,17 +27,9 @@ const OrderLoading = () => {
   );
 };
 
-function Order({ order }) {
+function Order({ order }: { order: IOrder }) {
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
-  const {
-    id,
-    status,
-    priority,
-    priorityPrice,
-    orderPrice,
-    estimatedDelivery,
-    cart,
-  } = order;
+  const { id, status, priority, priorityPrice, orderPrice, estimatedDelivery, cart } = order;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (

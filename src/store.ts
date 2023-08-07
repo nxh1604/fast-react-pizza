@@ -8,3 +8,5 @@ export const store = configureStore({
     cartSlice,
   },
 });
+
+export type IRootState = ReturnType<typeof store.getState>;

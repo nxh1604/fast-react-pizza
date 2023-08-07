@@ -22,7 +22,6 @@
 
 .button {
   position: absolute;
-  padding: 0;
   bottom: 0;
   padding: 1rem;
   font-size: 1.5rem;
@@ -56,4 +55,29 @@
   .table th {
     width: 18rem;
   }
+}
+
+.updateContainer {
+  display: grid;
+  width: 18rem;
+  grid-template-columns: 1fr 1fr 1fr 8rem;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 2rem;
+}
+
+.updateButton {
+  padding: 0;
+  width: 3rem;
+  height: 3rem;
+}
+
+.deleteButton {
+  padding: 1rem;
+  font-size: 1.5rem;
+  width: fit-content;
 }

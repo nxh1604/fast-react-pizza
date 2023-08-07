@@ -4,14 +4,15 @@ import Button from "../../ui/Button/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateName } from "./userSlice";
+import { IRootState } from "../../store";
 
 function CreateUser() {
   const [username, setUsername] = useState("");
   const dispatch = useDispatch();
-  const userName = useSelector((state) => state.user.userName);
+  const userName = useSelector((state: IRootState) => state.user.userName);
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     dispatch(updateName(username));
     setUsername("");

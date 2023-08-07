@@ -5,55 +5,34 @@ import { createOrder } from "../../services/apiRestaurant";
 import styles from "./CreateOrder.module.css";
 import Button from "../../ui/Button/Button";
 import { useSelector } from "react-redux";
+import { IRootState } from "../../store";
 
 // https://uibakery.io/regex-library/phone-number
-const isValidPhone = (str) =>
-  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-    str
-  );
+const isValidPhone = (str: string) =>
+  /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(str);
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
+interface IErrorObject {
+  phone?: string;
+}
 
 function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
-  const userName = useSelector((state) => state.user.userName);
+  const userName = useSelector((state: IRootState) => state.user.userName);
 
   const [name, setName] = useState(userName);
 
-  const cart = fakeCart;
+  const cart = useSelector((state: IRootState) => state.cartSlice.cart);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
-  const formErrors = useActionData();
+  const formErrors = useActionData() as IErrorObject;
 
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState<null | string>(null);
 
   useEffect(() => {
     if (formErrors && Object.keys(formErrors).length > 0) {
-      setPhone(formErrors.phone);
+      if (formErrors.phone) setPhone(formErrors.phone);
     }
   }, [formErrors, setPhone]);
 
@@ -95,11 +74,7 @@ function CreateOrder() {
               }}
             />
           </div>
-          {phone && (
-            <div className={styles.error}>
-              {!!formErrors?.phone && formErrors.phone}
-            </div>
-          )}
+          {phone && <div className={styles.error}>{!!formErrors?.phone && formErrors.phone}</div>}
         </div>
 
         <div className={styles.row2}>
@@ -139,16 +114,15 @@ function CreateOrder() {
   );
 }
 
-export const action = async ({ request }: any) => {
+export const action = async ({ request }) => {
   const formData = await request.formData();
 
   const data = Object.fromEntries(formData);
 
-  const errors = {};
+  const errors: IErrorObject = {};
 
   if (!isValidPhone(data.phone)) {
-    errors.phone =
-      "Please give us your correct phone number. We might need it to contact you";
+    errors.phone = "Please give us your correct phone number. We might need it to contact you";
   }
 
   if (Object.keys(errors).length > 0) return errors;
