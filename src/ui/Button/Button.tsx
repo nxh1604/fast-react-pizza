@@ -1,21 +1,24 @@
-import { Link } from "react-router-dom";
 import styles from "./Button.module.css";
 
 const Button = ({
   children,
   className = "",
-  to = "",
+  type = "button",
   disabled = false,
   onClick = () => undefined,
 }: {
   children?: React.ReactNode;
-  to?: string;
+  type?: "button" | "submit" | "reset" | undefined;
   className?: string;
   disabled?: boolean;
-  onClick?: () => void | undefined;
+  onClick?: () => void | unknown | undefined;
 }): JSX.Element => {
   return (
-    <button onClick={onClick} className={`${styles.button} ${className}`} disabled={disabled}>
+    <button
+      type={type}
+      onClick={onClick}
+      className={`${styles.button} ${className}`}
+      disabled={disabled}>
       {children}
     </button>
   );

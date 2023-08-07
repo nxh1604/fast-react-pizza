@@ -3,9 +3,9 @@
   border: none;
   font-size: 1.6rem;
   font-weight: 700;
-  letter-spacing: 1px;
   background-color: var(--color--main-yellow-01);
   border-radius: 5rem;
+  text-transform: uppercase;
   transition: background-color 0.1s ease-in;
 }
 

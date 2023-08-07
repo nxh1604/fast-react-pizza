@@ -1,8 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CartItem from "./CartItem";
 
 import styles from "./Cart.module.css";
 import Button from "../../ui/Button/Button";
+import { useDispatch, useSelector } from "react-redux";
+import EmptyCart from "./EmptyCart";
+import { clearCart } from "./cartSlice";
 
 const fakeCart = [
   {
@@ -29,14 +32,23 @@ const fakeCart = [
 ];
 
 function Cart() {
-  const cart = fakeCart;
+  const username = useSelector((state) => state.user.userName);
+  const cart = useSelector((state) => state.cartSlice.cart);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  if (cart.length === 0) return <EmptyCart />;
+
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <Button onClick={() => navigate("/menu")}>&larr; Back to menu</Button>
-        <h2 className={styles.cartTitle}>Your cart, %NAME%</h2>
+        <h2 className={styles.cartTitle}>Your cart, {username}</h2>
       </div>
       <ul className={styles.cartList}>
         {cart.map((el) => (
@@ -45,7 +57,9 @@ function Cart() {
       </ul>
       <div className={styles.footer}>
         <Button onClick={() => navigate("/order/new")}>Order Pizzas</Button>
-        <Button>Clear cart</Button>
+        <Button onClick={handleClearCart} className={styles.clearButton}>
+          Clear cart
+        </Button>
       </div>
     </div>
   );

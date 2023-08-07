@@ -1,10 +1,25 @@
+import { useDispatch } from "react-redux";
 import Button from "../../ui/Button/Button";
 import { formatCurrency } from "../../utils/helpers";
 
 import styles from "./MenuItem.module.css";
+import { addItem } from "../cart/cartSlice";
 
 function MenuItem({ pizza }) {
+  const dispatch = useDispatch();
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
+
+  const handleAddPizza = () => {
+    const newItem = {
+      imageUrl,
+      pizzaId: id,
+      name,
+      quantity: 1,
+      unitPrice,
+      totalPrice: unitPrice * 1,
+    };
+    dispatch(addItem(newItem));
+  };
 
   return (
     <li className={styles.item}>
@@ -27,7 +42,11 @@ function MenuItem({ pizza }) {
           </tr>
         </tbody>
       </table>
-      {!soldOut && <Button className={styles.button}>Add to cart</Button>}
+      {!soldOut && (
+        <Button onClick={handleAddPizza} className={styles.button}>
+          Add to cart
+        </Button>
+      )}
     </li>
   );
 }

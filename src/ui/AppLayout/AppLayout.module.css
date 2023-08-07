@@ -6,7 +6,7 @@
 }
 
 .mainContent {
-  background-color: #e2e2e2;
+  background-color: var(--color--bg-gray-01);
   overflow: auto;
   position: relative;
   padding: 2.5rem 0;

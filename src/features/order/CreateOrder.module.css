@@ -1,9 +1,14 @@
 .container {
+  margin: 0 auto;
   position: relative;
   display: flex;
   flex-direction: column;
+  font-size: 1.8rem;
   gap: 3rem;
-  height: 100%;
+  max-width: 80rem;
+  min-width: 43rem;
+  height: 48rem;
+  border: 1px solid;
 }
 
 .header {
@@ -13,15 +18,12 @@
 }
 
 .form {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   gap: 2rem;
   padding: 1rem 2rem;
-}
-
-.error {
-  color: #cd0404;
-  font-size: 1.6rem;
 }
 
 .row2 {
@@ -38,7 +40,7 @@
 
 .inputContainer {
   height: 3rem;
-  width: 90%;
+  width: 100%;
 }
 
 .priority {
@@ -81,6 +83,14 @@
 
 :global(.input:hover) {
   box-shadow: 0 0 0 2px var(--color--main-yellow-01);
+}
+
+.error {
+  margin: 0 auto;
+  padding: 0 5px;
+  background-color: #cd040422;
+  color: #cd0404;
+  font-size: 1.6rem;
 }
 
 .errorContainer {

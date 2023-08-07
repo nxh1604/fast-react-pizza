@@ -12,6 +12,7 @@
   box-sizing: inherit;
   color: inherit;
   list-style: inherit;
+  font-family: inherit;
 }
 
 html {
@@ -22,11 +23,16 @@ body {
   box-sizing: border-box;
   text-align: center;
   list-style: none;
-  font-size: 2rem;
   font-family: "Roboto Mono", monospace;
+  font-size: 2rem;
 }
 
 img {
   width: 100%;
   height: 100%;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }

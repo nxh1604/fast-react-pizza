@@ -4,6 +4,7 @@ import { createOrder } from "../../services/apiRestaurant";
 
 import styles from "./CreateOrder.module.css";
 import Button from "../../ui/Button/Button";
+import { useSelector } from "react-redux";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -37,13 +38,16 @@ const fakeCart = [
 
 function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
+  const userName = useSelector((state) => state.user.userName);
+
+  const [name, setName] = useState(userName);
+
   const cart = fakeCart;
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
   const formErrors = useActionData();
-  console.log(formErrors);
 
   const [phone, setPhone] = useState(null);
 
@@ -53,7 +57,6 @@ function CreateOrder() {
     }
   }, [formErrors, setPhone]);
 
-  console.log(phone);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -68,6 +71,8 @@ function CreateOrder() {
               id="name"
               type="text"
               name="customer"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
               className="input"
               autoComplete="off"
@@ -91,9 +96,9 @@ function CreateOrder() {
             />
           </div>
           {phone && (
-            <span className={styles.error}>
+            <div className={styles.error}>
               {!!formErrors?.phone && formErrors.phone}
-            </span>
+            </div>
           )}
         </div>
 
@@ -125,7 +130,7 @@ function CreateOrder() {
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
-          <Button disabled={isSubmitting}>
+          <Button type={"submit"} disabled={isSubmitting}>
             {isSubmitting ? "Placing order..." : "Order now"}
           </Button>
         </div>

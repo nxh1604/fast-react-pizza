@@ -1,0 +1,66 @@
+.itemContainer {
+  display: grid;
+  grid-template-columns: 10rem 1fr 13rem;
+  border: 1px solid var(--color--main-yellow-01);
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.gridChild {
+  border: 1px solid var(--color--main-yellow-01);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemInfo {
+  padding: 0 1rem;
+  min-width: 30rem;
+  display: grid;
+  grid-template-columns: 1fr 15rem;
+  gap: 1rem;
+}
+
+.adding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.adding > button {
+  padding: 1rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.addingForm {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}
+
+.addingForm > button {
+  padding: 0.5rem;
+}
+
+.submitForm {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.submitForm > button {
+  letter-spacing: 0;
+  text-transform: uppercase;
+  padding: 1rem;
+  font-size: 1.3rem;
+}

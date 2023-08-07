@@ -5,12 +5,17 @@
 }
 
 .container {
+  min-width: 40rem;
   background-color: red;
   padding: 5rem;
-  border-radius: 100% 60%;
+  border-radius: 70% 60%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+.container > p {
+  margin: 0 auto;
 }
 
 .inputContainer {
@@ -20,4 +25,18 @@
 
 .inputContainer > input {
   padding: 0.5rem 1rem;
+}
+
+.btn {
+  display: none;
+}
+
+.display {
+  display: block;
+}
+
+.btnWelcome {
+  margin: 0 auto;
+  max-width: 100%;
+  min-width: fit-content;
 }
