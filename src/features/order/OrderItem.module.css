@@ -1,0 +1,28 @@
+.orderItemContainer {
+  width: 100%;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1.5rem;
+  font-size: 1.8rem;
+  border-top: 1px solid;
+}
+
+.quantity,
+.price {
+  font-weight: 700;
+}
+
+.ingredients {
+  text-align: start;
+  color: gray;
+  font-style: italic;
+  text-transform: capitalize;
+  font-size: 1.7rem;
+  padding-left: 1rem;
+  padding-bottom: 1.5rem;
+}

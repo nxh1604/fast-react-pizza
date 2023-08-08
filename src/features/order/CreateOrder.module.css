@@ -39,6 +39,7 @@
 }
 
 .inputContainer {
+  position: relative;
   height: 3rem;
   width: 100%;
 }
@@ -86,6 +87,7 @@
 }
 
 .error {
+  width: 100%;
   margin: 0 auto;
   padding: 0 5px;
   background-color: #cd040422;
@@ -95,4 +97,24 @@
 
 .errorContainer {
   border: 2px solid red;
+}
+
+.geoBtn {
+  padding: 0 1rem;
+  height: 3rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.disabled {
+  filter: grayscale(70%);
+}
+
+.disabled:hover {
+  cursor: unset;
+}
+
+.disabled:active {
+  transform: unset;
 }

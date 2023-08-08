@@ -10,13 +10,13 @@
   border-bottom: 2px solid;
 }
 
-.alone {
+.noUserName {
   display: flex;
   background-color: var(--color--main-yellow-01);
   align-items: center;
-  justify-content: center;
   font-size: 2.5rem;
-  padding: 1rem 2.5%;
+  justify-content: space-between;
+  padding: 1rem 10% 1rem 2.5%;
   text-transform: uppercase;
   font-weight: 600;
 }
@@ -29,7 +29,7 @@
   justify-self: flex-end;
 }
 
-@media (max-width: 64rem) {
+@media only screen and (max-width: 640px) {
   .container {
     display: grid;
     grid-template-columns: 1fr;
@@ -37,6 +37,11 @@
     grid-template-rows: repeat(3, 1fr);
     padding: 1rem 0 5px;
     font-size: 2.3rem;
+  }
+
+  .noUserName {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .link {

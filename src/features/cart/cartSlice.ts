@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IRootState } from "../../store";
 
 export interface ICartItem {
-  imageUrl: string;
+  imageUrl?: string;
   pizzaId: number;
   name: string;
   quantity: number;
@@ -42,13 +42,17 @@ const cartSlice = createSlice({
     },
     incItemQuantity(state, action) {
       // payload = pizzaId
-      const item = state.cart.find((el) => el.pizzaId === action.payload) as ICartItem;
+      const item = state.cart.find(
+        (el) => el.pizzaId === action.payload
+      ) as ICartItem;
       // tao 1 reference toi object co pizzaId = action.payload
       item.quantity++;
       item.totalPrice = item.quantity * item.unitPrice;
     },
     decItemQuantity(state, action) {
-      const item = state.cart.find((el) => el.pizzaId === action.payload) as ICartItem;
+      const item = state.cart.find(
+        (el) => el.pizzaId === action.payload
+      ) as ICartItem;
 
       item.quantity--;
       item.totalPrice = item.quantity * item.unitPrice;
@@ -57,7 +61,9 @@ const cartSlice = createSlice({
       }
     },
     setItemQuantity(state, action) {
-      const item = state.cart.find((el) => el.pizzaId === action.payload.pizzaId) as ICartItem;
+      const item = state.cart.find(
+        (el) => el.pizzaId === action.payload.pizzaId
+      ) as ICartItem;
       item.quantity = action.payload.quantity;
       item.totalPrice = item.quantity * item.unitPrice;
 
@@ -71,8 +77,14 @@ const cartSlice = createSlice({
   },
 });
 
-export const { setItemQuantity, addItem, deleteItem, incItemQuantity, decItemQuantity, clearCart } =
-  cartSlice.actions;
+export const {
+  setItemQuantity,
+  addItem,
+  deleteItem,
+  incItemQuantity,
+  decItemQuantity,
+  clearCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
 

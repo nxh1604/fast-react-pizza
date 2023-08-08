@@ -1,16 +1,24 @@
 // Test ID: IIDSAT
 
-import { Await, defer, useLoaderData } from "react-router-dom";
-import { Suspense } from "react";
-import { calcMinutesLeft, formatCurrency, formatDate } from "../../utils/helpers";
+import { Await, defer, useFetcher, useLoaderData } from "react-router-dom";
+import { Suspense, useEffect, useCallback } from "react";
+import {
+  calcMinutesLeft,
+  formatCurrency,
+  formatDate,
+} from "../../utils/helpers";
 import { getOrder } from "../../services/apiRestaurant";
 import Loading from "../../ui/Loading";
 import { ICartItem } from "../cart/cartSlice";
-
+import styles from "./Order.module.css";
+import OrderItem from "./OrderItem";
+import { IPizza } from "../menu/MenuItem";
+import UpdateOrder from "./UpdateOrder";
 interface IOrder {
   id: number;
   status: string;
   priority: boolean;
+  customer: string;
   priorityPrice: number;
   estimatedDelivery: Date;
   orderPrice: number;
@@ -29,42 +37,70 @@ const OrderLoading = () => {
 
 function Order({ order }: { order: IOrder }) {
   // Everyone can search for all orders, so for privacy reasons we're gonna gonna exclude names or address, these are only for the restaurant staff
-  const { id, status, priority, priorityPrice, orderPrice, estimatedDelivery, cart } = order;
+  const fetcher = useFetcher();
+
+  useEffect(() => {
+    if (!fetcher.data && fetcher.state === "idle") {
+      fetcher.load("/menu");
+    }
+  }, [fetcher]);
+
+  const {
+    id,
+    status,
+    priority,
+    priorityPrice,
+    orderPrice,
+    estimatedDelivery,
+    cart,
+  } = order;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
   return (
-    <div>
-      <div>
-        <h2>Status</h2>
-
-        <div>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h2 className={styles.orderId}>Order #{id} Status</h2>
+        <div className={styles.orderStatus}>
           {priority && <span>Priority</span>}
           <span>{status} order</span>
         </div>
       </div>
 
-      <div>
-        <p>
+      <div className={styles.orderDeliveryTime}>
+        <p className={styles.timeDeliveried}>
           {deliveryIn >= 0
             ? `Only ${calcMinutesLeft(estimatedDelivery)} minutes left 😃`
             : "Order should have arrived"}
         </p>
-        <p>(Estimated delivery: {formatDate(estimatedDelivery)})</p>
+        <p className={styles.estimatedDelivery}>
+          (Estimated delivery: {formatDate(estimatedDelivery)})
+        </p>
+      </div>
+      <div className={styles.cartInfo}>
+        {cart.map((el) => (
+          <OrderItem
+            item={el}
+            key={el.pizzaId}
+            isLoadingIngredients={fetcher.state === "loading"}
+            ingredients={
+              fetcher?.data?.pizzas.find(
+                (item: IPizza) => item.id === el.pizzaId
+              )?.ingredients ?? []
+            }
+          />
+        ))}
       </div>
 
-      <div>
+      <div className={styles.orderPrice}>
         <p>Price pizza: {formatCurrency(orderPrice)}</p>
         {priority && <p>Price priority: {formatCurrency(priorityPrice)}</p>}
-        <p>To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}</p>
+        <p className={styles.pay}>
+          To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
+        </p>
       </div>
+      {!priority && <UpdateOrder />}
     </div>
   );
 }
-
-export const loader = ({ params }) => {
-  return defer({
-    order: getOrder(params.orderId),
-  });
-};
 
 export default OrderLoading;

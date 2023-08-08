@@ -9,13 +9,13 @@ const Header = (): JSX.Element => {
   const userName = useSelector((state: IRootState) => state.user.userName);
 
   return (
-    <header className={`${userName ? styles.container : styles.alone}`}>
+    <header className={`${userName ? styles.container : styles.noUserName}`}>
       <Link className={styles.link} to={"/"}>
         Fast react pizzas co.
       </Link>
+      <SearchOrder />
       {userName && (
         <>
-          <SearchOrder />
           <UserName className={styles.user} />
         </>
       )}
