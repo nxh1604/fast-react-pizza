@@ -1,13 +1,12 @@
 // Test ID: IIDSAT
 
-import { Await, defer, useFetcher, useLoaderData } from "react-router-dom";
-import { Suspense, useEffect, useCallback } from "react";
+import { Await, useFetcher, useLoaderData } from "react-router-dom";
+import { Suspense, useEffect } from "react";
 import {
   calcMinutesLeft,
   formatCurrency,
   formatDate,
 } from "../../utils/helpers";
-import { getOrder } from "../../services/apiRestaurant";
 import Loading from "../../ui/Loading";
 import { ICartItem } from "../cart/cartSlice";
 import styles from "./Order.module.css";
@@ -26,7 +25,7 @@ interface IOrder {
 }
 
 const OrderLoading = () => {
-  const data = useLoaderData();
+  const data = useLoaderData() as { order: Promise<IOrder> };
 
   return (
     <Suspense fallback={<Loading />}>

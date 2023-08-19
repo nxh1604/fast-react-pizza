@@ -26,7 +26,9 @@ function MenuItem({ pizza }: { pizza: IPizza }) {
   const { id, name, unitPrice, ingredients, soldOut, imageUrl } = pizza;
 
   const getQuantity = useSelector((state: IRootState) => {
-    const item = state.cartSlice.cart.find((item: ICartItem) => item.pizzaId === id);
+    const item = state.cartSlice.cart.find(
+      (item: ICartItem) => item.pizzaId === id
+    );
     return item ? item.quantity : 0;
   });
 
@@ -74,8 +76,7 @@ function MenuItem({ pizza }: { pizza: IPizza }) {
               className={styles.updateButton}
               onClick={() => {
                 dispatch(decItemQuantity(id));
-              }}
-            >
+              }}>
               -
             </Button>
             <span>{getQuantity}</span>
@@ -83,11 +84,14 @@ function MenuItem({ pizza }: { pizza: IPizza }) {
               className={styles.updateButton}
               onClick={() => {
                 dispatch(incItemQuantity(id));
-              }}
-            >
+              }}>
               +
             </Button>
-            <Button className={styles.deleteButton} onClick={() => dispatch(deleteItem(id))}>
+            <Button
+              className={styles.deleteButton}
+              onClick={() => {
+                dispatch(deleteItem(id));
+              }}>
               Delete
             </Button>
           </div>

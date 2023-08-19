@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
+import {
+  ActionFunctionArgs,
+  Form,
+  redirect,
+  useActionData,
+  useNavigation,
+} from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 
 import styles from "./CreateOrder.module.css";
@@ -115,9 +121,12 @@ function CreateOrder() {
                 className={`${styles.geoBtn} ${
                   isLoadingUserAddress ? styles.disabled : ""
                 }`}
-                onClick={(e: unknown) => {
-                  e.preventDefault();
-                  dispatch(fetchAddress());
+                onClick={(
+                  e: React.MouseEvent<HTMLButtonElement> | undefined
+                ) => {
+                  e && e.preventDefault();
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  dispatch<any>(fetchAddress());
                 }}>
                 {isLoadingUserAddress ? "Getting position..." : "Get position"}
               </Button>
@@ -168,14 +177,16 @@ function CreateOrder() {
   );
 }
 
-export const action = async ({ request }) => {
+export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
 
   const data = Object.fromEntries(formData);
 
   const errors: IErrorObject = {};
 
-  if (!isValidPhone(data.phone)) {
+  console.log(typeof data.phone);
+
+  if (typeof data.phone === "string" && !isValidPhone(data.phone)) {
     errors.phone =
       "Please give us your correct phone number. We might need it to contact you";
   }
@@ -184,15 +195,17 @@ export const action = async ({ request }) => {
 
   const order = {
     ...data,
-    cart: JSON.parse(data.cart).map((el: ICartItem) => {
-      return {
-        pizzaId: el.pizzaId,
-        name: el.name,
-        quantity: el.quantity,
-        unitPrice: el.unitPrice,
-        totalPrice: el.totalPrice,
-      };
-    }),
+    cart:
+      typeof data.cart === "string" &&
+      JSON.parse(data.cart).map((el: ICartItem) => {
+        return {
+          pizzaId: el.pizzaId,
+          name: el.name,
+          quantity: el.quantity,
+          unitPrice: el.unitPrice,
+          totalPrice: el.totalPrice,
+        };
+      }),
     priority: data.priority === "on",
   };
   console.log(order);

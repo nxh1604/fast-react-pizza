@@ -1,8 +1,8 @@
-import { defer } from "react-router-dom";
+import { LoaderFunctionArgs, defer } from "react-router-dom";
 import { getOrder } from "../../services/apiRestaurant";
 
-export const loader = ({ params }) => {
+export const loader = ({ params }: LoaderFunctionArgs) => {
   return defer({
-    order: getOrder(params.orderId),
+    order: getOrder(Number(params.orderId)),
   });
 };

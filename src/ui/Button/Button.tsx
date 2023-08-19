@@ -11,7 +11,7 @@ const Button = ({
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
   disabled?: boolean;
-  onClick?: (e?: unknown) => void | unknown | undefined;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void | undefined;
 }): JSX.Element => {
   return (
     <button

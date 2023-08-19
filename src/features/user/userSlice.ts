@@ -3,16 +3,19 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAddress } from "../../services/apiGeocoding";
 
 function getPosition() {
-  return new Promise(function (resolve, reject) {
+  return new Promise<GeolocationPosition>(function (resolve, reject) {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
-interface IReturnFetchAddresData {
+interface IPosition {
   position: {
     latitude?: number | string | undefined;
     longitude?: number | string | undefined;
   };
+}
+
+export interface IReturnFetchAddresData extends IPosition {
   address: string;
 }
 
@@ -20,8 +23,8 @@ export const fetchAddress = createAsyncThunk("user/fetchAddress", async () => {
   // 1) We get the user's geolocation position
   const positionObj = await getPosition();
   const position = {
-    latitude: positionObj.coords.latitude as number,
-    longitude: positionObj.coords.longitude as number,
+    latitude: positionObj.coords.latitude,
+    longitude: positionObj.coords.longitude,
   };
 
   // 2) Then we use a reverse geocoding API to get a description of the user's address, so we can display it the order form, so that the user can correct it if wrong

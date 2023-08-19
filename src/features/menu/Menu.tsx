@@ -8,13 +8,15 @@ import Loading from "../../ui/Loading";
 import styles from "./Menu.module.css";
 
 function Menu() {
-  const data = useLoaderData() as Awaited<ReturnType<typeof loader>>;
+  const data = useLoaderData() as Record<string, ReturnType<typeof loader>>;
 
   return (
     <div className={styles.menu}>
       <Suspense fallback={<Loading />}>
         <Await resolve={data.pizzas}>
-          {(pizzas) => pizzas.map((el: IPizza) => <MenuItem pizza={el} key={el.id} />)}
+          {(pizzas) =>
+            pizzas.map((el: IPizza) => <MenuItem pizza={el} key={el.id} />)
+          }
         </Await>
       </Suspense>
     </div>
