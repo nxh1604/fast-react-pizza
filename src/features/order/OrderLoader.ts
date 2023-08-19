@@ -3,6 +3,6 @@ import { getOrder } from "../../services/apiRestaurant";
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   return defer({
-    order: getOrder(Number(params.orderId)),
+    order: params.orderId && getOrder(params.orderId),
   });
 };

@@ -15,6 +15,6 @@ export default UpdateOrder;
 
 export const action = async ({ params }: ActionFunctionArgs) => {
   const data = { priority: true };
-  await updateOrder(Number(params.orderId), data);
+  params.orderId && (await updateOrder(params.orderId, data));
   return null;
 };

@@ -35,18 +35,19 @@ function CreateOrder() {
     error: AddressError,
   } = useSelector((state: IRootState) => state.user);
 
-  const isLoadingUserAddress = status === "loading";
-
   const cart = useSelector((state: IRootState) => state.cartSlice.cart);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const dispatch = useDispatch();
 
   const [phone, setPhone] = useState<null | string>(null);
   const [name, setName] = useState(userName);
+  const [address, setAddress] = useState("");
   const [withPriority, setWithPriority] = useState(false);
 
   const formErrors = useActionData() as IErrorObject;
   const navigation = useNavigation();
+
+  const isLoadingUserAddress = status === "loading";
 
   const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
 
@@ -57,6 +58,12 @@ function CreateOrder() {
       if (formErrors.phone) setPhone(formErrors.phone);
     }
   }, [formErrors, setPhone]);
+
+  useEffect(() => {
+    if (userAddress) {
+      setAddress(userAddress);
+    }
+  }, [userAddress, setAddress]);
 
   return (
     <div className={styles.container}>
@@ -109,7 +116,10 @@ function CreateOrder() {
               className={`input ${isLoadingUserAddress ? styles.disabled : ""}`}
               id="address"
               type="text"
-              defaultValue={userAddress}
+              value={address}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setAddress(e.target.value)
+              }
               name="address"
               disabled={isLoadingUserAddress}
               required
@@ -184,8 +194,6 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   const errors: IErrorObject = {};
 
-  console.log(typeof data.phone);
-
   if (typeof data.phone === "string" && !isValidPhone(data.phone)) {
     errors.phone =
       "Please give us your correct phone number. We might need it to contact you";
@@ -208,7 +216,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       }),
     priority: data.priority === "on",
   };
-  console.log(order);
+
   const newOrder = await createOrder(order);
 
   store.dispatch(clearCart());
