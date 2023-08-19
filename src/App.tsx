@@ -53,7 +53,7 @@ const router = createBrowserRouter(
 const App = (): JSX.Element => {
   return (
     <Suspense fallback={<Loading />}>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </Suspense>
   );
 };
